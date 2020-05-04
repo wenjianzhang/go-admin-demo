@@ -156,10 +156,10 @@ func InitRouter() *gin.Engine {
 		auth.POST("/logout", handler.LogOut)
 
 
-		auth.GET("/articlelist/",apis.GetArticleList)
+		auth.GET("/articleList",apis.GetArticleList)
 		auth.GET("/article/:articleId",apis.GetArticle)
-		auth.POST("/article/",apis.InsertArticle)
-		auth.PUT("/article/:articleId",apis.UpdateArticle)
+		auth.POST("/article",apis.InsertArticle)
+		auth.PUT("/article",apis.UpdateArticle)
 		auth.DELETE("/article/:articleId",apis.DeleteArticle)
 	}
 	//r.NoRoute(authMiddleware.MiddlewareFunc(), NoFound)

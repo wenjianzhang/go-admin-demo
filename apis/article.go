@@ -22,6 +22,10 @@ func GetArticleList(c *gin.Context) {
 		pageIndex = tools.StrToInt(err, index)
 	}
 
+	data.Title = c.Request.FormValue("title")
+	data.Author = c.Request.FormValue("author")
+
+
 	data.DataScope = tools.GetUserIdStr(c)
 	result, count, err := data.GetPage(pageSize, pageIndex)
 	tools.HasError(err, "", -1)
@@ -40,7 +44,7 @@ func GetArticle(c *gin.Context) {
 
 func InsertArticle(c *gin.Context) {
 	var data models.Article
-	err := c.BindWith(&data, binding.JSON)
+	err := c.ShouldBindJSON(&data)
 	//data.CreateBy = tools.GetUserIdStr(c)
 	tools.HasError(err, "", 500)
 	result, err := data.Create()
@@ -61,9 +65,10 @@ func UpdateArticle(c *gin.Context) {
 
 func DeleteArticle(c *gin.Context) {
 	var data models.Article
-	id, err := tools.StringToInt(c.Param("articleId"))
 	//data.UpdateBy = tools.GetUserIdStr(c)
-	_, err = data.Delete(id)
-	tools.HasError(err, "删除失败", 500)
+
+	IDS := tools.IdsStrToIdsIntGroup("articleId", c)
+	_, err := data.BatchDelete(IDS)
+	tools.HasError(err, msg.DeletedFail, 500)
 	app.OK(c, nil, msg.DeletedSuccess)
 }

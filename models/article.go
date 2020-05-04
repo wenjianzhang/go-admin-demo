@@ -2,7 +2,6 @@ package models
 
 import (
 	orm "go-admin-demo/database"
-	"go-admin-demo/tools"
 	_ "time"
 )
 
@@ -11,9 +10,6 @@ type Article struct {
 	Title     string `json:"title" gorm:"type:varchar(128);"`           // 标题
 	Author    string `json:"author" gorm:"type:varchar(128);"`          // 作者
 	Content   string `json:"content" gorm:"type:varchar(255);"`         // 内容
-	CreatedAt string `json:"createdAt" gorm:"type:timestamp;"`          //
-	UpdatedAt string `json:"updatedAt" gorm:"type:timestamp;"`          //
-	DeletedAt string `json:"deletedAt" gorm:"type:timestamp;"`          //
 	DataScope string `json:"dataScope" gorm:"-"`
 	Params    string `json:"params"  gorm:"-"`
 	BaseModel
@@ -40,6 +36,12 @@ func (e *Article) Get() (Article, error) {
 	var doc Article
 
 	table := orm.Eloquent.Table(e.TableName())
+	if e.Title != "" {
+		table = table.Where("title = ?", e.Title)
+	}
+	if e.Author != "" {
+		table = table.Where("author = ?", e.Author)
+	}
 
 	if err := table.First(&doc).Error; err != nil {
 		return doc, err
@@ -52,15 +54,21 @@ func (e *Article) GetPage(pageSize int, pageIndex int) ([]Article, int, error) {
 	var doc []Article
 
 	table := orm.Eloquent.Select("*").Table(e.TableName())
+	if e.Title != "" {
+		table = table.Where("title = ?", e.Title)
+	}
+	if e.Author != "" {
+		table = table.Where("author = ?", e.Author)
+	}
 
 	// 数据权限控制(如果不需要数据权限请将此处去掉)
-	dataPermission := new(DataPermission)
-	dataPermission.UserId, _ = tools.StringToInt(e.DataScope)
-	table = dataPermission.GetDataScope(e.TableName(), table)
+	//dataPermission := new(DataPermission)
+	//dataPermission.UserId, _ = tools.StringToInt(e.DataScope)
+	//table = dataPermission.GetDataScope(e.TableName(), table)
 
 	var count int
-	table = table.Offset((pageIndex - 1) * pageSize).Limit(pageSize)
-	if err := table.Find(&doc).Error; err != nil {
+
+	if err := table.Offset((pageIndex - 1) * pageSize).Limit(pageSize).Find(&doc).Error; err != nil {
 		return nil, 0, err
 	}
 	table.Count(&count)
@@ -88,5 +96,14 @@ func (e *Article) Delete(id int) (success bool, err error) {
 		return
 	}
 	success = true
+	return
+}
+
+//批量删除
+func (e *Article) BatchDelete(id []int) (Result bool, err error) {
+	if err = orm.Eloquent.Table(e.TableName()).Where("article_id in (?)", id).Delete(&Article{}).Error; err != nil {
+		return
+	}
+	Result = true
 	return
 }
