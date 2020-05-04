@@ -46,7 +46,7 @@ app.OK(c, result, "")
 
 func Insert{{.ClassName}}(c *gin.Context) {
 var data models.{{.ClassName}}
-err := c.BindWith(&data, binding.JSON)
+err := c.ShouldBindJSON(&data)
 data.CreateBy = tools.GetUserIdStr(c)
 tools.HasError(err, "", 500)
 result, err := data.Create()
@@ -67,9 +67,10 @@ app.OK(c, result, "")
 
 func Delete{{.ClassName}}(c *gin.Context) {
 var data models.{{.ClassName}}
-id, err := tools.StringToInt(c.Param("{{.PkJsonField}}"))
 data.UpdateBy = tools.GetUserIdStr(c)
-_, err = data.Delete(id)
+
+IDS := tools.IdsStrToIdsIntGroup("{{.PkJsonField}}", c)
+_, err := data.BatchDelete(IDS)
 tools.HasError(err, msg.DeletedFail, 500)
 app.OK(c, nil, msg.DeletedSuccess)
 }
