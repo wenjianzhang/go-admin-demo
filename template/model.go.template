@@ -55,9 +55,9 @@ return doc, nil
 
 // 获取{{.ClassName}}带分页
 func (e *{{.ClassName}}) GetPage(pageSize int, pageIndex int) ([]{{.ClassName}}, int, error) {
-var doc []{{.ClassName}}
+    var doc []{{.ClassName}}
 
-table := orm.Eloquent.Select("*").Table(e.TableName())
+    table := orm.Eloquent.Select("*").Table(e.TableName())
 {{ range .Columns -}}
     {{$z := .IsQuery}}
     {{- if ($z) -}}
@@ -67,40 +67,49 @@ table := orm.Eloquent.Select("*").Table(e.TableName())
     {{ end -}}
 {{ end }}
 
-// 数据权限控制(如果不需要数据权限请将此处去掉)
-dataPermission := new(DataPermission)
-dataPermission.UserId, _ = tools.StringToInt(e.DataScope)
-table = dataPermission.GetDataScope(e.TableName(), table)
+    // 数据权限控制(如果不需要数据权限请将此处去掉)
+    dataPermission := new(DataPermission)
+    dataPermission.UserId, _ = tools.StringToInt(e.DataScope)
+    table = dataPermission.GetDataScope(e.TableName(), table)
 
-var count int
-table = table.Offset((pageIndex - 1) * pageSize).Limit(pageSize)
-if err := table.Find(&doc).Error; err != nil {
-return nil, 0, err
-}
-table.Count(&count)
-return doc, count, nil
+    var count int
+
+    if err := table.Offset((pageIndex - 1) * pageSize).Limit(pageSize).Find(&doc).Error; err != nil {
+    return nil, 0, err
+    }
+    table.Count(&count)
+    return doc, count, nil
 }
 
 // 更新{{.ClassName}}
 func (e *{{.ClassName}}) Update(id int) (update {{.ClassName}}, err error) {
-if err = orm.Eloquent.Table(e.TableName()).Where("{{.PkColumn}} = ?", id).First(&update).Error; err != nil {
-return
-}
+    if err = orm.Eloquent.Table(e.TableName()).Where("{{.PkColumn}} = ?", id).First(&update).Error; err != nil {
+        return
+    }
 
-//参数1:是要修改的数据
-//参数2:是修改的数据
-if err = orm.Eloquent.Table(e.TableName()).Model(&update).Updates(&e).Error; err != nil {
-return
-}
-return
+    //参数1:是要修改的数据
+    //参数2:是修改的数据
+    if err = orm.Eloquent.Table(e.TableName()).Model(&update).Updates(&e).Error; err != nil {
+        return
+    }
+    return
 }
 
 // 删除{{.ClassName}}
 func (e *{{.ClassName}}) Delete(id int) (success bool, err error) {
-if err = orm.Eloquent.Table(e.TableName()).Where("{{.PkColumn}} = ?", id).Delete(&{{.ClassName}}{}).Error; err != nil {
-success = false
-return
+    if err = orm.Eloquent.Table(e.TableName()).Where("{{.PkColumn}} = ?", id).Delete(&{{.ClassName}}{}).Error; err != nil {
+        success = false
+        return
+    }
+    success = true
+    return
 }
-success = true
-return
+
+//批量删除
+func (e *{{.ClassName}}) BatchDelete(id []int) (Result bool, err error) {
+    if err = orm.Eloquent.Table(e.TableName()).Where("{{.PkColumn}} in (?)", id).Delete(&{{.ClassName}}{}).Error; err != nil {
+        return
+    }
+    Result = true
+    return
 }
