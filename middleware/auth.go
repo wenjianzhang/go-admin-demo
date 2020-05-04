@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"go-admin/handler"
-	jwt "go-admin/pkg/jwtauth"
-	"go-admin/tools/config"
+	"go-admin-demo/handler"
+	jwt "go-admin-demo/pkg/jwtauth"
+	"go-admin-demo/tools/config"
 	"time"
 )
 

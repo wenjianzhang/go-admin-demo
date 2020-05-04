@@ -2,9 +2,9 @@ package system
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/tools"
-	"go-admin/tools/app"
-	"go-admin/tools/captcha"
+	"go-admin-demo/tools"
+	"go-admin-demo/tools/app"
+	"go-admin-demo/tools/captcha"
 )
 
 func GenerateCaptchaHandler(c *gin.Context) {

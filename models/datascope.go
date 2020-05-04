@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/jinzhu/gorm"
-	"go-admin/tools"
+	"go-admin-demo/tools"
 )
 
 type DataPermission struct {

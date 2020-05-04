@@ -6,8 +6,8 @@ import (
 	gormadapter "github.com/casbin/gorm-adapter/v2"
 	"github.com/go-kit/kit/endpoint"
 	_ "github.com/go-sql-driver/mysql"
-	"go-admin/database"
-	"go-admin/tools/config"
+	"go-admin-demo/database"
+	"go-admin-demo/tools/config"
 )
 
 var Em endpoint.Middleware

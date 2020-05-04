@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/tools/app"
+	"go-admin-demo/tools/app"
 )
 
 func HelloGoAdmin(c *gin.Context) {

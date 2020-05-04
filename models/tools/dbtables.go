@@ -2,8 +2,8 @@ package tools
 
 import (
 	"errors"
-	orm "go-admin/database"
-	config2 "go-admin/tools/config"
+	orm "go-admin-demo/database"
+	config2 "go-admin-demo/tools/config"
 )
 
 type DBTables struct {

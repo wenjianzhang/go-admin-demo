@@ -3,8 +3,8 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
-	"go-admin/models"
-	"go-admin/tools"
+	"go-admin-demo/models"
+	"go-admin-demo/tools"
 	"strings"
 	"time"
 )

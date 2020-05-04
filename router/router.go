@@ -4,16 +4,17 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
-	log2 "go-admin/apis/log"
-	"go-admin/apis/monitor"
-	"go-admin/apis/system"
-	"go-admin/apis/system/dict"
-	. "go-admin/apis/tools"
-	_ "go-admin/docs"
-	"go-admin/handler"
-	"go-admin/handler/sd"
-	"go-admin/middleware"
-	_ "go-admin/pkg/jwtauth"
+	"go-admin-demo/apis"
+	log2 "go-admin-demo/apis/log"
+	"go-admin-demo/apis/monitor"
+	"go-admin-demo/apis/system"
+	"go-admin-demo/apis/system/dict"
+	. "go-admin-demo/apis/tools"
+	_ "go-admin-demo/docs"
+	"go-admin-demo/handler"
+	"go-admin-demo/handler/sd"
+	"go-admin-demo/middleware"
+	_ "go-admin-demo/pkg/jwtauth"
 	"log"
 )
 
@@ -25,7 +26,6 @@ func InitRouter() *gin.Engine {
 	r.Use(middleware.Options)
 	r.Use(middleware.Secure)
 	r.Use(middleware.RequestId())
-	r.Use(middleware.DemoEvn())
 
 	r.GET("/", system.HelloWorld)
 	r.Static("/static", "./static")
@@ -154,6 +154,13 @@ func InitRouter() *gin.Engine {
 		auth.GET("/configKey/:configKey", system.GetConfigByConfigKey)
 
 		auth.POST("/logout", handler.LogOut)
+
+
+		auth.GET("/articlelist/",apis.GetArticleList)
+		auth.GET("/article/:articleId",apis.GetArticle)
+		auth.POST("/article/",apis.InsertArticle)
+		auth.PUT("/article/:articleId",apis.UpdateArticle)
+		auth.DELETE("/article/:articleId",apis.DeleteArticle)
 	}
 	//r.NoRoute(authMiddleware.MiddlewareFunc(), NoFound)
 

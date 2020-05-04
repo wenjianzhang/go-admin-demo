@@ -1,8 +1,8 @@
 package tools
 
 import (
-	orm "go-admin/database"
-	"go-admin/models"
+	orm "go-admin-demo/database"
+	"go-admin-demo/models"
 )
 
 type SysColumns struct {

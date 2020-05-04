@@ -3,8 +3,8 @@ package cmd
 import (
 	"errors"
 	"github.com/spf13/cobra"
-	"go-admin/cmd/api"
-	"go-admin/cmd/migrate"
+	"go-admin-demo/cmd/api"
+	"go-admin-demo/cmd/migrate"
 	"log"
 	"os"
 )

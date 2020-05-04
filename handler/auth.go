@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
 	"github.com/mssola/user_agent"
-	"go-admin/models"
-	jwt "go-admin/pkg/jwtauth"
-	"go-admin/tools"
+	"go-admin-demo/models"
+	jwt "go-admin-demo/pkg/jwtauth"
+	"go-admin-demo/tools"
 	"log"
 	"net/http"
 )

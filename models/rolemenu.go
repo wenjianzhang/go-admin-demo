@@ -2,8 +2,8 @@ package models
 
 import (
 	"fmt"
-	orm "go-admin/database"
-	"go-admin/tools"
+	orm "go-admin-demo/database"
+	"go-admin-demo/tools"
 )
 
 type RoleMenu struct {

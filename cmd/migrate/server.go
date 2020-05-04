@@ -2,12 +2,12 @@ package migrate
 
 import (
 	"fmt"
-	"go-admin/database"
-	orm "go-admin/database"
-	"go-admin/models"
-	"go-admin/models/gorm"
-	"go-admin/tools"
-	config2 "go-admin/tools/config"
+	"go-admin-demo/database"
+	orm "go-admin-demo/database"
+	"go-admin-demo/models"
+	"go-admin-demo/models/gorm"
+	"go-admin-demo/tools"
+	config2 "go-admin-demo/tools/config"
 	"log"
 
 	"github.com/spf13/cobra"

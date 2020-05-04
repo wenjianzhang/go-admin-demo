@@ -2,10 +2,10 @@ package tools
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-admin/models/tools"
-	tools2 "go-admin/tools"
-	"go-admin/tools/app"
-	config2 "go-admin/tools/config"
+	"go-admin-demo/models/tools"
+	tools2 "go-admin-demo/tools"
+	"go-admin-demo/tools/app"
+	config2 "go-admin-demo/tools/config"
 	"net/http"
 )
 

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	_ "github.com/go-sql-driver/mysql" //加载mysql
 	"github.com/jinzhu/gorm"
-	"go-admin/tools/config"
+	"go-admin-demo/tools/config"
 
 	"log"
 	"strconv"

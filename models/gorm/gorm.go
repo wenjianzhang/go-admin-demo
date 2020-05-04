@@ -2,8 +2,8 @@ package gorm
 
 import (
 	"github.com/jinzhu/gorm"
-	"go-admin/models"
-	"go-admin/models/tools"
+	"go-admin-demo/models"
+	"go-admin-demo/models/tools"
 )
 
 func AutoMigrate(db *gorm.DB) error {
@@ -24,5 +24,6 @@ func AutoMigrate(db *gorm.DB) error {
 		new(models.DictData),
 		new(models.SysConfig),
 		new(models.DictType),
+		new(models.Article),
 	).Error
 }

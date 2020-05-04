@@ -3,9 +3,9 @@ package dict
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
-	"go-admin/models"
-	"go-admin/tools"
-	"go-admin/tools/app"
+	"go-admin-demo/models"
+	"go-admin-demo/tools"
+	"go-admin-demo/tools/app"
 	"net/http"
 )
 

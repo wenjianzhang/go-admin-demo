@@ -1,4 +1,4 @@
-module go-admin
+module go-admin-demo
 
 go 1.12
 

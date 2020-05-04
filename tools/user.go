@@ -3,7 +3,7 @@ package tools
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	jwt "go-admin/pkg/jwtauth"
+	jwt "go-admin-demo/pkg/jwtauth"
 )
 
 func ExtractClaims(c *gin.Context) jwt.MapClaims {

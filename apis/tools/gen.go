@@ -3,9 +3,9 @@ package tools
 import (
 	"bytes"
 	"github.com/gin-gonic/gin"
-	"go-admin/models/tools"
-	tools2 "go-admin/tools"
-	"go-admin/tools/app"
+	"go-admin-demo/models/tools"
+	tools2 "go-admin-demo/tools"
+	"go-admin-demo/tools/app"
 	"net/http"
 	"text/template"
 )
